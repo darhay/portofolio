@@ -174,6 +174,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
+    const revealVisibleElements = () => {
+        document.querySelectorAll('.fade-up').forEach(element => {
+           const rect = element.getBoundingClientRect();
+           if (rect.top < window.innerHeight + 120) {
+               element.classList.add('visible');
+           }
+        });
+    };
+
     document.querySelectorAll('.fade-up').forEach(element => {
         observer.observe(element);
     });
@@ -184,40 +193,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Trigger immediately for elements already in view on load
-    setTimeout(() => {
-        document.querySelectorAll('.fade-up').forEach(element => {
-           const rect = element.getBoundingClientRect();
-           if (rect.top < window.innerHeight) {
-               element.classList.add('visible');
-           }
-        });
-    }, 100);
+    setTimeout(revealVisibleElements, 100);
+
+    window.addEventListener('resize', () => {
+        requestAnimationFrame(revealVisibleElements);
+    });
 
     // Filter logic (basic setup)
     const filterBtns = document.querySelectorAll('.filter-btn');
     const masonryItems = document.querySelectorAll('.masonry-item');
 
+    const applyFilter = (filterValue) => {
+        masonryItems.forEach(item => {
+           const matches = filterValue === 'all' || item.getAttribute('data-category') === filterValue;
+           item.style.display = matches ? 'block' : 'none';
+        });
+    };
+
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Update active state
-            filterBtns.forEach(b => {
-                b.classList.remove('text-primary', 'border-b', 'border-primary');
-                b.classList.add('text-on-surface-variant');
-            });
-            btn.classList.add('text-primary', 'border-b', 'border-primary');
-            btn.classList.remove('text-on-surface-variant');
+           // Update active state
+           filterBtns.forEach(b => {
+               b.classList.remove('text-primary', 'border-b', 'border-primary');
+               b.classList.add('text-on-surface-variant');
+           });
+           btn.classList.add('text-primary', 'border-b', 'border-primary');
+           btn.classList.remove('text-on-surface-variant');
 
-            const filterValue = btn.getAttribute('data-filter');
-
-            masonryItems.forEach(item => {
-                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+           const filterValue = btn.getAttribute('data-filter');
+           applyFilter(filterValue);
         });
     });
+
+    applyFilter(document.querySelector('.filter-btn.text-primary')?.getAttribute('data-filter') || 'all');
 });
 
 // Lightbox Logic (Mockup structure for keyboard support)
