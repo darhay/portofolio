@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&family=JetBrains+Mono:wght@500&family=Noto+Sans:wght@400;600&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Font Mappings for Tailwind */
+@layer utilities {
+    .font-hankenGrotesk { font-family: 'Hanken Grotesk', sans-serif; }
+    .font-notoSans { font-family: 'Noto Sans', sans-serif; }
+    .font-jetbrainsMono { font-family: 'JetBrains Mono', monospace; }
+}
+
+/* Minimal Animations */
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Grid Lines */
+.bg-grid {
+    background-size: 100px 100px;
+    background-image:
+        linear-gradient(to right, #27272a 1px, transparent 1px),
+        linear-gradient(to bottom, #27272a 1px, transparent 1px);
+}
+
+/* Masonry Grid */
+.masonry-grid {
+    column-count: 1;
+    column-gap: 24px;
+}
+@media (min-width: 768px) {
+    .masonry-grid {
+        column-count: 2;
+    }
+}
+@media (min-width: 1024px) {
+    .masonry-grid {
+        column-count: 3;
+    }
+}
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 24px;
+}
+
+/* Lightbox transitions */
+.lightbox-enter {
+    opacity: 0;
+}
+.lightbox-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+}
+.lightbox-exit {
+    opacity: 1;
+}
+.lightbox-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+}
+
+#lightbox-content {
+    cursor: grab;
+    scroll-behavior: auto;
+}
+
+#lightbox-content:active {
+    cursor: grabbing;
+}
+
+#lightbox-img {
+    transform-origin: center center;
+    transform: scale(1);
+    max-width: min(100%, 1600px);
+    max-height: calc(100vh - 220px);
+    width: auto;
+    height: auto;
+    background: rgba(19, 19, 19, 0.8);
+}
+
+#lightbox-img.zoomed {
+    transform: scale(1.25);
+}
+
+#lightbox-content::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+#lightbox-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
