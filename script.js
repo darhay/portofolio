@@ -190,6 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.masonry-item img').forEach(img => {
         img.loading = 'lazy';
         img.decoding = 'async';
+        img.setAttribute('loading', 'lazy');
+        img.setAttribute('decoding', 'async');
     });
 
     // Trigger immediately for elements already in view on load
@@ -302,7 +304,7 @@ function openLightbox(element) {
 
     const lightboxImg = document.getElementById('lightbox-img');
     if (imgEl && lightboxImg) {
-        lightboxImg.src = imgEl.src;
+        lightboxImg.src = imgEl.currentSrc || imgEl.src;
         lightboxImg.alt = imgEl.alt || titleEl;
     }
     document.getElementById('lightbox-category').innerText = catEl;

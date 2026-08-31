@@ -50,6 +50,13 @@ html {
     margin-bottom: 24px;
 }
 
+@media (max-width: 767px) {
+    .masonry-item {
+        content-visibility: visible;
+        contain-intrinsic-size: auto;
+    }
+}
+
 .masonry-item img {
     display: block;
     width: 100%;
