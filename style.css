@@ -48,6 +48,15 @@ html {
 .masonry-item {
     break-inside: avoid;
     margin-bottom: 24px;
+    content-visibility: auto;
+    contain-intrinsic-size: 600px 700px;
+}
+
+.masonry-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: rgba(19, 19, 19, 0.8);
 }
 
 /* Lightbox transitions */

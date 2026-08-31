@@ -178,6 +178,11 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(element);
     });
 
+    document.querySelectorAll('.masonry-item img').forEach(img => {
+        img.loading = 'lazy';
+        img.decoding = 'async';
+    });
+
     // Trigger immediately for elements already in view on load
     setTimeout(() => {
         document.querySelectorAll('.fade-up').forEach(element => {
