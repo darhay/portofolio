@@ -48,8 +48,6 @@ html {
 .masonry-item {
     break-inside: avoid;
     margin-bottom: 24px;
-    content-visibility: auto;
-    contain-intrinsic-size: 600px 700px;
 }
 
 @media (max-width: 767px) {
