@@ -5,11 +5,15 @@ html {
 }
 
 /* Custom Font Mappings for Tailwind */
-@layer utilities {
+/* @layer utilities {
     .font-hankenGrotesk { font-family: 'Hanken Grotesk', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
     .font-notoSans { font-family: 'Noto Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
     .font-jetbrainsMono { font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace; }
-}
+} */
+ /* Custom Font Mappings for Tailwind */
+.font-hankenGrotesk { font-family: 'Hanken Grotesk', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+.font-notoSans { font-family: 'Noto Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+.font-jetbrainsMono { font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace; }
 
 h1, h2, h3, h4, h5, h6,
 .font-display-lg,

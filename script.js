@@ -225,7 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
            overlay.classList.add('project-overlay');
         }
 
-        const projectButton = overlay?.querySelector('.font-jetbrainsMono:last-of-type');
+        // const projectButton = overlay?.querySelector('.font-jetbrainsMono:last-of-type');
+        const projectButton = overlay?.querySelector(':scope > span:last-of-type');
         if (projectButton) {
            const button = document.createElement('button');
            button.type = 'button';
