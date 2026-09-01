@@ -67,28 +67,28 @@ tailwind.config = {
       },
       "fontFamily": {
               "display-lg": [
-                      "hankenGrotesk"
+                      "Hanken Grotesk", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif"
               ],
               "body-lg": [
-                      "notoSans"
+                      "Noto Sans", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif"
               ],
               "headline-lg": [
-                      "hankenGrotesk"
+                      "Hanken Grotesk", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif"
               ],
               "headline-md": [
-                      "hankenGrotesk"
+                      "Hanken Grotesk", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif"
               ],
               "label-mono": [
-                      "jetbrainsMono"
+                      "JetBrains Mono", "SFMono-Regular", "Consolas", "monospace"
               ],
               "body-md": [
-                      "notoSans"
+                      "Noto Sans", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif"
               ],
               "display-xl": [
-                      "hankenGrotesk"
+                      "Hanken Grotesk", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif"
               ],
               "display-lg-mobile": [
-                      "hankenGrotesk"
+                      "Hanken Grotesk", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif"
               ]
       },
       "fontSize": {
