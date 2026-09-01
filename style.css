@@ -6,9 +6,35 @@ html {
 
 /* Custom Font Mappings for Tailwind */
 @layer utilities {
-    .font-hankenGrotesk { font-family: 'Hanken Grotesk', sans-serif; }
-    .font-notoSans { font-family: 'Noto Sans', sans-serif; }
-    .font-jetbrainsMono { font-family: 'JetBrains Mono', monospace; }
+    .font-hankenGrotesk { font-family: 'Hanken Grotesk', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+    .font-notoSans { font-family: 'Noto Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+    .font-jetbrainsMono { font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace; }
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-display-lg,
+.font-display-lg-mobile,
+.font-display-xl,
+.font-headline-lg,
+.font-headline-md,
+.font-hankenGrotesk,
+.text-display-lg-mobile,
+.text-display-xl,
+.text-headline-lg,
+.text-headline-md {
+    font-family: 'Hanken Grotesk', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-synthesis-weight: none;
+}
+
+p, body,
+.font-body-lg,
+.font-body-md,
+.font-notoSans {
+    font-family: 'Noto Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Minimal Animations */
@@ -48,6 +74,38 @@ html {
 .masonry-item {
     break-inside: avoid;
     margin-bottom: 24px;
+}
+
+.masonry-item .project-overlay {
+    pointer-events: none;
+}
+.masonry-item:hover .project-overlay,
+.masonry-item:focus-within .project-overlay,
+.masonry-item.is-tapped .project-overlay {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+@media (hover: none) {
+    .masonry-item .project-overlay {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .masonry-item.is-tapped .project-overlay {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.masonry-item .view-project-btn {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
 }
 
 @media (max-width: 767px) {

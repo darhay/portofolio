@@ -159,6 +159,27 @@ tailwind.config = {
 
 // Simple Intersection Observer for fade-up animations
 document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuToggle && mobileMenu) {
+        mobileMenuToggle.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuToggle.setAttribute('aria-expanded', String(!isHidden));
+            mobileMenuToggle.innerHTML = isHidden
+                ? '<span class="material-symbols-outlined text-3xl">menu</span>'
+                : '<span class="material-symbols-outlined text-3xl">close</span>';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                mobileMenuToggle.innerHTML = '<span class="material-symbols-outlined text-3xl">menu</span>';
+            });
+        });
+    }
+
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -192,6 +213,72 @@ document.addEventListener('DOMContentLoaded', () => {
         img.decoding = 'async';
         img.setAttribute('loading', 'lazy');
         img.setAttribute('decoding', 'async');
+    });
+
+    document.querySelectorAll('.masonry-item[onclick]').forEach(item => {
+        item.removeAttribute('onclick');
+    });
+
+    document.querySelectorAll('.masonry-item').forEach(item => {
+        const overlay = item.querySelector('.absolute.inset-0');
+        if (overlay) {
+           overlay.classList.add('project-overlay');
+        }
+
+        const projectButton = overlay?.querySelector('.font-jetbrainsMono:last-of-type');
+        if (projectButton) {
+           const button = document.createElement('button');
+           button.type = 'button';
+           button.className = projectButton.className + ' view-project-btn';
+           button.setAttribute('aria-label', 'View project');
+           button.innerHTML = projectButton.innerHTML;
+           button.addEventListener('click', (event) => {
+               event.preventDefault();
+               event.stopPropagation();
+               handleProjectAction(item);
+           });
+           projectButton.replaceWith(button);
+        }
+
+        const toggleTapState = () => {
+           if (!window.matchMedia('(hover: none)').matches) return;
+           item.classList.add('is-tapped');
+           clearTimeout(item.dataset.tapTimeoutId);
+           item.dataset.tapTimeoutId = setTimeout(() => {
+               item.classList.remove('is-tapped');
+           }, 1500);
+        };
+
+        item.addEventListener('click', (event) => {
+           if (event.target.closest('.view-project-btn')) {
+               return;
+           }
+
+           if (window.matchMedia('(hover: none)').matches) {
+               event.preventDefault();
+               event.stopPropagation();
+               toggleTapState();
+               return;
+           }
+
+           event.preventDefault();
+           event.stopPropagation();
+        });
+
+        item.addEventListener('pointerdown', (event) => {
+           if (event.pointerType === 'touch' && !event.target.closest('.view-project-btn')) {
+               toggleTapState();
+           }
+        });
+
+        document.addEventListener('touchstart', (event) => {
+           if (!window.matchMedia('(hover: none)').matches) return;
+           if (!event.target.closest('.masonry-item')) {
+               document.querySelectorAll('.masonry-item.is-tapped').forEach((activeItem) => {
+                   activeItem.classList.remove('is-tapped');
+               });
+           }
+        }, { passive: true });
     });
 
     // Trigger immediately for elements already in view on load
@@ -275,7 +362,18 @@ function handleProjectAction(element) {
 
     const projectUrl = element.getAttribute('data-project-url');
     if (projectUrl) {
-        window.open(projectUrl, '_blank', 'noopener,noreferrer');
+        try {
+            const tempLink = document.createElement('a');
+            tempLink.href = projectUrl;
+            tempLink.target = '_blank';
+            tempLink.rel = 'noopener noreferrer';
+            tempLink.style.display = 'none';
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            tempLink.remove();
+        } catch (error) {
+            window.open(projectUrl, '_blank', 'noopener,noreferrer');
+        }
         return;
     }
 
@@ -288,7 +386,7 @@ function openLightbox(element) {
 
     const projectUrl = element.getAttribute('data-project-url');
     if (projectUrl) {
-        window.open(projectUrl, '_blank', 'noopener,noreferrer');
+        handleProjectAction(element);
         return;
     }
 
